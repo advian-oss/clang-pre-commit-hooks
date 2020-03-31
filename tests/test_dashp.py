@@ -24,3 +24,11 @@ class TestHDashp:
             if arg.startswith("-p"):
                 dashp_found = True
         assert dashp_found
+
+    @staticmethod
+    def test_clang_tidy_dashp_notpresent(klass) -> None:
+        """Test missing -p, make sure the flag isn't there in that case either"""
+        checker = klass([])
+        for arg in checker.args:
+            assert not arg.startswith("-DCMAKE_EXPORT_COMPILE_COMMANDS")
+            assert not arg.startswith("-p")
